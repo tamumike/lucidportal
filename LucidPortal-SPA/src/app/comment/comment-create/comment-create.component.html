@@ -1,0 +1,55 @@
+<div class="container mt-5">
+
+  <form #submitForm="ngForm" (ngSubmit)="submit()">
+      <div class="form-group">
+        <!-- <div class="col"> -->
+          <label for="selectProducer">Producer</label>
+            <select id="selectProducer" class="custom-select" required name="producer" [(ngModel)]="model.producer">
+                <option *ngFor="let producer of producerList">{{producer}}</option>
+              </select>
+          <!-- </div> -->
+        <div class="form-group mt-3">
+          <textarea class="form-control" required name="content" [(ngModel)]="model.content" placeholder="Add comment here...."></textarea>
+        </div>
+      </div>
+      <div class="form-group">
+          <label for="exampleFormControlInput1">Username</label>
+          <input type="text" class="form-control" value={{user}} readonly name="username" [(ngModel)]="model.createdBy">
+      </div>
+      
+      <div class="container">
+        <button type="button" class="btn btn-success mr-2" (click)="add()">Add</button>
+        <button type="button" class="btn btn-danger" (click)="cancel()">Cancel</button>
+      </div>
+      
+
+  <div class="container mt-5">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Producer</th>
+          <th scope="col">Content</th>
+          <th scope="col">Delete</th>
+          <!-- <th scope="col">Edit</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of commentList">
+          <th scope="row">1</th>
+          <td>{{item.producer}}</td>
+          <td>{{item.content}}</td>
+          <td><button type="button" class="btn btn-link" (click)="removeComment(item)"><i class="fa fa-trash"></i></button></td>
+          <!-- <td><button type="button" class="btn btn-link" ng-click="testing()"><i class="fa fa-edit"></i></button></td> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="container mt-5 text-center">
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </div>
+
+</form>
+  
+</div>
