@@ -1,7 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommentService } from '../../_services/comment.service';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, } from '@angular/router';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { producers } from '../../base';
 import { environment } from 'src/environments/environment.prod';
@@ -23,7 +23,6 @@ export class CommentCreateComponent implements OnInit {
     private alertify: AlertifyService) { }
 
   ngOnInit() {
-    this.getUser();
   }
 
   submit() {
@@ -35,13 +34,13 @@ export class CommentCreateComponent implements OnInit {
     });
   }
 
-  getUser() {
-    this.http.get(this.baseUrl + 'values/user', {responseType: 'text'}).subscribe(user => {
-      this.user = user;
-    }, error => {
-      console.log(error);
-    });
-  }
+  // getUser() {
+  //   this.http.get(this.baseUrl + 'values/user', {responseType: 'text'}).subscribe(user => {
+  //     this.user = user;
+  //   }, error => {
+  //     console.log(error);
+  //   });
+  // }
 
   add() {
     if ('producer' in this.model && 'content' in this.model) {

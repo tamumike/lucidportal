@@ -32,6 +32,7 @@ namespace LucidPortal.API
             services.AddCors();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddAuthentication(HttpSysDefaults.AuthenticationScheme);
+            services.Configure<IISOptions>(options => options.AutomaticAuthentication = true);
             services.AddHttpContextAccessor();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -52,8 +53,8 @@ namespace LucidPortal.API
             // app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
-            app.UseDefaultFiles(); //
-            app.UseStaticFiles(); //
+            // app.UseDefaultFiles(); //
+            // app.UseStaticFiles(); //
             app.UseMvc(routes => {
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",

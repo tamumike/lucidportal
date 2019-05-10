@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 namespace LucidPortal.API.Controllers
 {
 
-    //[Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CommentController : ControllerBase

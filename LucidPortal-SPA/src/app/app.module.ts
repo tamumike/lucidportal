@@ -14,6 +14,8 @@ import { HomeComponent } from './home/home.component';
 import { CommentEditComponent } from './comment/comment-edit/comment-edit.component';
 import { AlertifyService } from './_services/alertify.service';
 import { CommentEditResolver } from './_resolvers/comment-edit.resolver';
+import { UserService } from './_services/user.service';
+import { UserResolver } from './_resolvers/user.resolver';
 
 @NgModule({
    declarations: [
@@ -33,7 +35,9 @@ import { CommentEditResolver } from './_resolvers/comment-edit.resolver';
    providers: [
       CommentService,
       AlertifyService,
-      CommentEditResolver
+      UserService,
+      CommentEditResolver,
+      UserResolver
    ],
    bootstrap: [
       AppComponent

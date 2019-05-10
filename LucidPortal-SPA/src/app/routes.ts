@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { CommentListComponent } from './comment/comment-list/comment-list.component';
 import { CommentEditComponent } from './comment/comment-edit/comment-edit.component';
 import { CommentEditResolver } from './_resolvers/comment-edit.resolver';
+import { UserResolver } from './_resolvers/user.resolver';
 
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent },
