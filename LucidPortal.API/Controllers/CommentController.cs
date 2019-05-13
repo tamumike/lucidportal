@@ -19,9 +19,12 @@ namespace LucidPortal.API.Controllers
     public class CommentController : ControllerBase
     {
         private readonly ICommentRepository _repo;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private string _user;
 
-        public CommentController(ICommentRepository repo)
+        public CommentController(ICommentRepository repo, IHttpContextAccessor httpContextAccessor)
         {
+            _httpContextAccessor = httpContextAccessor;
             _repo = repo;
         }
 
@@ -32,14 +35,16 @@ namespace LucidPortal.API.Controllers
             if (await _repo.CommentExists(commentForPostDto.Producer, DateTime.Now))
                 return BadRequest("Comment already exists for this day");
 
+            _user = _httpContextAccessor.HttpContext.User.Identity.Name;
+
             var commentToPost = new Comment
             {
-              Producer = commentForPostDto.Producer,
-              Content = commentForPostDto.Content,
-              CreatedBy = Environment.UserName,
-              Created = DateTime.Now.Date,
-              LastEdited = DateTime.Now.Date,
-              EditedBy = commentForPostDto.CreatedBy  
+                Producer = commentForPostDto.Producer,
+                Content = commentForPostDto.Content,
+                CreatedBy = _user,
+                Created = DateTime.Now.Date,
+                LastEdited = DateTime.Now.Date,
+                EditedBy = _user
             };
 
             var postedComment = await _repo.Submit(commentToPost);
@@ -57,14 +62,16 @@ namespace LucidPortal.API.Controllers
                 if (await _repo.CommentExists(commentsForPostDto[i].Producer, DateTime.Now.AddDays(-1)))
                     return BadRequest("Comment already exists for this day");
 
+                _user = _httpContextAccessor.HttpContext.User.Identity.Name;
+
                 var commentToPost = new Comment
                 {
                     Producer = commentsForPostDto[i].Producer,
                     Content = commentsForPostDto[i].Content,
-                    CreatedBy = Environment.UserName,
+                    CreatedBy = _user,
                     Created = DateTime.Now.Date.AddDays(-1),
                     LastEdited = DateTime.Now.Date.AddDays(-1),
-                    EditedBy = commentsForPostDto[i].CreatedBy  
+                    EditedBy = _user
                 };
                 var postedComment = await _repo.Submit(commentToPost);
             }
