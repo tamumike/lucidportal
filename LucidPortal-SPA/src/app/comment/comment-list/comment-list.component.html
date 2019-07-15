@@ -1,22 +1,24 @@
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Producer</th>
-      <th scope="col">Content</th>
-      <th scope="col">Created By</th>
-      <th scope="col">Created Date</th>
-      <!-- <th scope="col">Edit</th> -->
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let comment of comments">
-      <th scope="row">{{comment.id}}</th>
-      <td>{{comment.producer}}</td>
-      <td>{{comment.content}}</td>
-      <td>{{comment.createdBy}}</td>
-      <td>{{comment.created | date  }}</td>
-      <!-- <td><button class="btn btn-link" [routerLink]="['/comment/', comment.id]" routerLinkActive="router-link-active" ><i class="fa fa-edit"></i></button></td> -->
-    </tr>
-  </tbody>
-</table>
+<div class="container mt-3">
+    <table class="table table-striped table-hover table-sm table-bordered text-center shadow">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col" style="width: 2%" class="align-middle">ID</th>
+        <th scope="col" style="width: 2%" class="align-middle">Producer</th>
+        <th scope="col" style="width: 20%" class="align-middle">Content</th>
+        <th scope="col" style="width: 2%" class="align-middle">Created By</th>
+        <th scope="col" style="width: 10%" class="align-middle">Created Date</th>
+        <!-- <th scope="col">Edit</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let comment of comments">
+        <th scope="row">{{comment.id}}</th>
+        <td>{{comment.producer}}</td>
+        <td>{{comment.content}}</td>
+        <td>{{comment.createdBy}}</td>
+        <td>{{comment.created | date  }}</td>
+        <!-- <td><button class="btn btn-link" [routerLink]="['/comment/', comment.id]" routerLinkActive="router-link-active" ><i class="fa fa-edit"></i></button></td> -->
+      </tr>
+    </tbody>
+  </table>
+</div>

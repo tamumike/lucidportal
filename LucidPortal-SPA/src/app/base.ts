@@ -21,6 +21,5 @@ export const producers = [
     'Taprock',
     'Total SC Processed Volumes',
     'WPX',
-    'XTO',
-    'Total Volume'
+    'XTO'
 ];

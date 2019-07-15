@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -33,7 +34,8 @@ namespace LucidPortal.API.Data
         public async Task<IEnumerable<Comment>> GetComments()
         {
             var comments = await _context.Comments.ToListAsync();
-            return comments;
+            IEnumerable<Comment> query = comments.OrderByDescending(comment => comment.Created);
+            return query;
         }
 
         public async Task<Comment> Submit(Comment comment)

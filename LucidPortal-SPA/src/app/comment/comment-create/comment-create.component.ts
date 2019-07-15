@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommentService } from '../../_services/comment.service';
 import { HttpClient } from '@angular/common/http';
 import { Router, } from '@angular/router';
@@ -12,6 +12,7 @@ import { environment } from 'src/environments/environment.prod';
   styleUrls: ['./comment-create.component.css']
 })
 export class CommentCreateComponent implements OnInit {
+  @ViewChild('submitForm') formValues;
   baseUrl = environment.apiUrl;
   user: any;
   model: any = {};
@@ -47,6 +48,7 @@ export class CommentCreateComponent implements OnInit {
       const modelToAdd = Object.assign({}, this.model);
       if (!this.checkComments(modelToAdd.producer)) {
         this.commentList.push(modelToAdd);
+        this.formValues.resetForm();
       } else {
         this.alertify.error('A comment for this producer has already been added.');
       }
