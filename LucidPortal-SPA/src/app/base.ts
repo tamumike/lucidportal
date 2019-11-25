@@ -5,7 +5,8 @@ export const producers = [
     'Chevron',
     'Chisholm',
     'Cimarex',
-    'Concho',
+    'Concho - Legacy',
+    'Concho - Tankless',
     'Devon',
     'Devon Gathering Volumes',
     'Energen',
@@ -21,5 +22,11 @@ export const producers = [
     'Taprock',
     'Total SC Processed Volumes',
     'WPX',
-    'XTO'
+    'XTO - Corral Canyon',
+    'XTO - James Ranch',
+    'XTO - Other',
+    'XTO - Poker Lake',
+    'XTO - Remuda Basin',
+    'XTO - Twin Wells',
+    'XTO - Big Eddy'
 ];

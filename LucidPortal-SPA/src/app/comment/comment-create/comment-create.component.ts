@@ -18,6 +18,7 @@ export class CommentCreateComponent implements OnInit {
   model: any = {};
   commentList: any = [];
   producerList = producers;
+  clicked = false;
 
   constructor(private commentService: CommentService,
     private http: HttpClient, private router: Router,
@@ -27,6 +28,7 @@ export class CommentCreateComponent implements OnInit {
   }
 
   submit() {
+    this.clicked = true;
     this.commentService.submitMulti(this.commentList).subscribe(() => {
       this.router.navigate(['/comment-list']);
       this.alertify.success('Comment saved');
