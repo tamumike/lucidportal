@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Server.HttpSys;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -28,17 +29,18 @@ namespace LucidPortal.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddCors();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddAuthentication(HttpSysDefaults.AuthenticationScheme);
             services.Configure<IISOptions>(options => options.AutomaticAuthentication = true);
             services.AddHttpContextAccessor();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -51,15 +53,29 @@ namespace LucidPortal.API
             }
 
             // app.UseHttpsRedirection();
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+            app.UseRouting();
+            app.UseAuthorization();
             app.UseAuthentication();
+
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            
             app.UseDefaultFiles();
             app.UseStaticFiles();
-            app.UseMvc(routes => {
-                routes.MapSpaFallbackRoute(
-                    name: "spa-fallback",
-                    defaults: new { controller = "Fallback", action = "Index"}
-                );
+
+            // app.UseMvc(routes => {
+            //     routes.MapSpaFallbackRoute(
+            //         name: "spa-fallback",
+            //         defaults: new { controller = "Fallback", action = "Index"}
+            //     );
+            // });
+
+            app.UseEndpoints(endpoints => {
+                // endpoints.MapControllerRoute(
+                //     name: "spa-fallback",
+                //     pattern: "{controller=Fallback}/{action=Index}"
+                // );
+                endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
     }
