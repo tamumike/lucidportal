@@ -27,9 +27,9 @@ namespace LucidPortal.API.Controllers
 
         // GET api/values
         [HttpGet]
-        public async Task<IActionResult> GetComments()
+        public IActionResult GetComments()
         {
-            var values = await _context.Comments.ToListAsync();
+            var values = "test";
             return Ok(values);
         }
 

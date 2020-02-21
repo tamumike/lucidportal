@@ -14,8 +14,8 @@ namespace LucidPortal.API.Controllers
 {
 
     // [Authorize]
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class CommentController : ControllerBase
     {
         private readonly ICommentRepository _repo;

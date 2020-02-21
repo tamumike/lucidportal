@@ -12,6 +12,7 @@ export const producers = [
     'Energen',
     'EOG - HP',
     'EOG - LP',
+    'Felix',
     'Lilis',
     'Marathon',
     'Matador',

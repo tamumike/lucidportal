@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 
 namespace LucidPortal.API
 {
@@ -26,15 +27,30 @@ namespace LucidPortal.API
 
         public IConfiguration Configuration { get; }
 
+        // public void ConfigureDevelopmentServices(IServiceCollection services) 
+        // {
+        //     services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+        //     ConfigureServices(services);
+        // }
+
+        // public void ConfigureProductionServices(IServiceCollection services) 
+        // {
+        //     services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+        //     ConfigureServices(services);
+        // }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddControllers();
+            services.AddSwaggerGen(c => {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Lucid Portal API", Version = "v1" });
+            });
             services.AddCors();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddAuthentication(HttpSysDefaults.AuthenticationScheme);
-            services.Configure<IISOptions>(options => options.AutomaticAuthentication = true);
+            services.Configure<IISServerOptions>(options => options.AutomaticAuthentication = true);
             services.AddHttpContextAccessor();
             // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
@@ -54,27 +70,25 @@ namespace LucidPortal.API
 
             // app.UseHttpsRedirection();
 
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c => 
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Lucid Portal API V1");
+            });
+            
+            
             app.UseRouting();
-            app.UseAuthorization();
-            app.UseAuthentication();
+            // app.UseAuthorization();
+            // app.UseAuthentication();
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
-            // app.UseMvc(routes => {
-            //     routes.MapSpaFallbackRoute(
-            //         name: "spa-fallback",
-            //         defaults: new { controller = "Fallback", action = "Index"}
-            //     );
-            // });
-
             app.UseEndpoints(endpoints => {
-                // endpoints.MapControllerRoute(
-                //     name: "spa-fallback",
-                //     pattern: "{controller=Fallback}/{action=Index}"
-                // );
+                endpoints.MapControllers();
                 endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
