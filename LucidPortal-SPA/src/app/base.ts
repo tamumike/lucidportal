@@ -9,6 +9,7 @@ export const producers = [
     'Concho - Legacy',
     'Concho - Tankless',
     'Devon',
+    'Devon - HP',
     'Devon Gathering Volumes',
     'Energen',
     'EOG - HP',
