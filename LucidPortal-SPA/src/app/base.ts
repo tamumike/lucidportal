@@ -25,11 +25,7 @@ export const producers = [
     'Taprock',
     'Total SC Processed Volumes',
     'WPX',
-    'XTO - Corral Canyon',
-    'XTO - James Ranch',
+    'XTO - Remuda/JR/TW',
+    'XTO - Big Eddy',
     'XTO - Other',
-    'XTO - Poker Lake',
-    'XTO - Remuda Basin',
-    'XTO - Twin Wells',
-    'XTO - Big Eddy'
 ];
