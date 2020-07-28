@@ -43,6 +43,7 @@ namespace LucidPortal.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ToolsContext>(x => x.UseSqlServer(Configuration.GetConnectionString("ToolsConnection")));
             services.AddControllers();
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Lucid Portal API", Version = "v1" });
@@ -52,7 +53,6 @@ namespace LucidPortal.API
             services.AddAuthentication(HttpSysDefaults.AuthenticationScheme);
             services.Configure<IISServerOptions>(options => options.AutomaticAuthentication = true);
             services.AddHttpContextAccessor();
-            // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

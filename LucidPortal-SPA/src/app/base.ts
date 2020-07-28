@@ -8,7 +8,7 @@ export const producers = [
     'Cimarex',
     'Concho - Legacy',
     'Concho - Tankless',
-    'Devon',
+    'Devon - LP',
     'Devon - HP',
     'Devon Gathering Volumes',
     'Energen',
@@ -26,6 +26,7 @@ export const producers = [
     'Total SC Processed Volumes',
     'WPX',
     'XTO - Remuda/JR/TW',
+    'XTO - Cowboy',
     'XTO - Big Eddy',
     'XTO - Other',
 ];
